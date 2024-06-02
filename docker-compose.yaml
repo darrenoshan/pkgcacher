@@ -1,0 +1,27 @@
+
+version: '3.8'
+
+networks:
+  acngnet:
+    name: acngnet
+    ipam:
+      config:
+        - subnet: 172.17.1.0/24
+          ip_range: 172.17.1.0/24
+          gateway: 172.17.1.1
+
+services:
+  myacng:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: myacng
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - acngnet
+    ports:
+      - 8080:8080
+    volumes:
+      - ./cachedir:/var/cache/apt-cacher-ng
