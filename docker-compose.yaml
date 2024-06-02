@@ -24,4 +24,12 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./cachedir:/var/cache/apt-cacher-ng
+      - acngcachedir:/var/cache/apt-cacher-ng
+
+volumes:
+  acngcachedir:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./cachedir
